@@ -9,7 +9,7 @@
     "lint": "eslint",
     "server": "json-server --watch db.json --port 3001"
   },
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@10.27.0",
   "dependencies": {
     "@tanstack/react-query": "^5.90.16",
     "class-variance-authority": "^0.7.1",
