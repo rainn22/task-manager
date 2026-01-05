@@ -1,8 +1,8 @@
-export default function Task() {
+export default function AddTask() {
   return (
     <div>
       <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100">
-        Task
+        Add Task
       </h1>
     </div>
   );

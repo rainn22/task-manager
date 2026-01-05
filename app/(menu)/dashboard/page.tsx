@@ -1,19 +1,9 @@
-
-
-export default function MenuLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Dashboard() {
   return (
-    <div className="flex h-screen">
-      
-      <div className="flex-1 flex flex-col">
-
-        <main className="flex-1 overflow-auto bg-gray-50">
-          {children}
-        </main>
-      </div>
+    <div>
+      <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100">
+        Dashboard
+      </h1>
     </div>
   );
 }
