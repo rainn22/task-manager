@@ -1,5 +1,5 @@
+import { getProjects } from "@/lib/api/project";
 import { notFound } from "next/navigation";
-import { getProjects } from "@/lib/api";
 
 export default async function ProjectPage({
   params,

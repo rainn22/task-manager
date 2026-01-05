@@ -1,5 +1,5 @@
+import { getProjects } from "@/lib/api/project";
 import Link from "next/link";
-import { getProjects } from "@/lib/api";
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
