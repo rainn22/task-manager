@@ -10,3 +10,13 @@ export async function getTasks(): Promise<Task[]> {
   const json = await res.json();
   return TaskSchema.array().parse(json);
 }
+
+export async function getTaskById(id: string): Promise<Task> {
+  const res = await fetch(`${API_URL}/tasks/${id}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch task");
+  }
+  const json = await res.json();
+  return TaskSchema.parse(json);
+}
+
