@@ -1,4 +1,37 @@
 {
+  "members": [
+    {
+      "id": "m1",
+      "name": "John Doe",
+      "position": "Project Lead",
+      "email": "john@example.com"
+    },
+    {
+      "id": "m2",
+      "name": "Anna Kim",
+      "position": "Designer",
+      "email": "anna@example.com"
+    },
+    {
+      "id": "m3",
+      "name": "Sam Lee",
+      "position": "Frontend Developer",
+      "email": "sam@example.com"
+    },
+    {
+      "id": "m4",
+      "name": "Mike Brown",
+      "position": "Backend Engineer",
+      "email": "mike@example.com"
+    },
+    {
+      "id": "m5",
+      "name": "Sarah Wilson",
+      "position": "Product Manager",
+      "email": "sarah@example.com"
+    }
+  ],
+
   "projects": [
     {
       "id": "1",
@@ -9,7 +42,8 @@
       "status": "active",
       "tasksTotal": 8,
       "tasksCompleted": 5,
-      "dueDate": "2025-03-31"
+      "dueDate": "2025-03-31",
+      "members": ["m1", "m2", "m5"]
     },
     {
       "id": "2",
@@ -20,7 +54,8 @@
       "status": "active",
       "tasksTotal": 12,
       "tasksCompleted": 7,
-      "dueDate": "2025-02-15"
+      "dueDate": "2025-02-15",
+      "members": ["m1", "m2", "m3"]
     },
     {
       "id": "3",
@@ -31,9 +66,11 @@
       "status": "active",
       "tasksTotal": 10,
       "tasksCompleted": 4,
-      "dueDate": "2025-04-30"
+      "dueDate": "2025-04-30",
+      "members": ["m1", "m3", "m4"]
     }
   ],
+
   "tasks": [
     {
       "id": "1",
@@ -44,6 +81,7 @@
       "priority": "high",
       "dueDate": "2025-01-20",
       "tags": ["design", "accessibility"],
+      "assignees": ["m2", "m3"],
       "subtasks": [
         { "id": "1", "title": "Audit current color tokens", "completed": true },
         { "id": "2", "title": "Create new color palette", "completed": true },
@@ -55,12 +93,6 @@
           "author": "Alice",
           "content": "The new palette looks great!",
           "createdAt": "2025-01-15T10:30:00Z"
-        },
-        {
-          "id": "2",
-          "author": "John",
-          "content": "Let's finalize the contrast ratios.",
-          "createdAt": "2025-01-15T11:45:00Z"
         }
       ]
     },
@@ -73,6 +105,7 @@
       "priority": "medium",
       "dueDate": "2025-01-25",
       "tags": ["documentation", "api"],
+      "assignees": ["m4"],
       "subtasks": [
         { "id": "1", "title": "Document auth endpoints", "completed": false },
         { "id": "2", "title": "Add examples", "completed": false }
@@ -88,6 +121,7 @@
       "priority": "low",
       "dueDate": "2025-01-10",
       "tags": ["research", "ux"],
+      "assignees": ["m1"],
       "subtasks": [
         { "id": "1", "title": "Transcribe interviews", "completed": true },
         { "id": "2", "title": "Create presentation", "completed": true }
@@ -110,6 +144,7 @@
       "priority": "high",
       "dueDate": "2025-01-22",
       "tags": ["performance", "frontend"],
+      "assignees": ["m3", "m4"],
       "subtasks": [
         { "id": "1", "title": "Audit performance", "completed": true },
         { "id": "2", "title": "Implement code splitting", "completed": false }
@@ -125,6 +160,7 @@
       "priority": "medium",
       "dueDate": "2025-01-28",
       "tags": ["marketing", "email"],
+      "assignees": ["m2", "m5"],
       "subtasks": [
         { "id": "1", "title": "Write copy", "completed": false },
         { "id": "2", "title": "Design template", "completed": false }
@@ -140,6 +176,7 @@
       "priority": "high",
       "dueDate": "2025-01-18",
       "tags": ["design", "mobile"],
+      "assignees": ["m2", "m3"],
       "subtasks": [
         { "id": "1", "title": "Onboarding flow", "completed": true },
         { "id": "2", "title": "Dashboard screens", "completed": true },
@@ -163,6 +200,7 @@
       "priority": "high",
       "dueDate": "2025-02-05",
       "tags": ["backend", "database"],
+      "assignees": ["m4"],
       "subtasks": [
         { "id": "1", "title": "Schema conversion", "completed": false },
         { "id": "2", "title": "Data migration", "completed": false }
@@ -178,6 +216,7 @@
       "priority": "medium",
       "dueDate": "2025-01-08",
       "tags": ["marketing", "social"],
+      "assignees": ["m2", "m5"],
       "subtasks": [
         { "id": "1", "title": "Content themes", "completed": true },
         { "id": "2", "title": "Schedule posts", "completed": true }
