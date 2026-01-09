@@ -1,11 +1,11 @@
 import { Label } from "@/components/ui/label";
 import Member from "@/components/project/member";
-import { Task, TaskStatus } from "@/validations/task";
+import { Task } from "@/validations/task";
 import { Member as MemberSchema } from "@/validations/member";
 import { Project } from "@/validations/project";
 import { Button } from "../ui/button";
 import { Plus, Calendar, Paperclip, Flag } from "lucide-react";
-import formatDate, { priorityColors, statusLabels } from "@/lib/utils";
+import formatDate, { priorityColors } from "@/lib/utils";
 import {
   Select,
   SelectContent,
@@ -39,11 +39,9 @@ export default function TaskDetails({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {(Object.keys(statusLabels) as TaskStatus[]).map((status) => (
-                <SelectItem key={status} value={status}>
-                  {statusLabels[status]}
-                </SelectItem>
-              ))}
+              <SelectItem value="todo">Todo</SelectItem>
+              <SelectItem value="in-progress">In Progress</SelectItem>
+              <SelectItem value="done">Done</SelectItem>
             </SelectContent>
           </Select>
         </div>
