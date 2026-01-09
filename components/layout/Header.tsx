@@ -30,17 +30,15 @@ export default function Header() {
   const isProjectDetail = pathname.startsWith("/projects/");
 
   return (
-    <header className="sticky top-0 z-50 flex h-20 items-center justify-between border-b bg-background/80 px-4 backdrop-blur md:px-6">
-      <SidebarTrigger className="md:hidden" />
-      <div className="flex flex-col">
-        <h1 className="text-lg font-semibold leading-tight">
-          {title}
-        </h1>
-        {subtitle && (
-          <span className="text-sm text-muted-foreground">
-            {subtitle}
-          </span>
-        )}
+    <header className="sticky top-0 z-50 flex h-20 items-center justify-between border-b bg-background/80 px-4 backdrop-blur md:px-4">
+      <div className="flex items-center">
+        <SidebarTrigger className="md:hidden" />
+        <div className="flex flex-col">
+          <h1 className="text-lg font-semibold leading-tight">{title}</h1>
+          {subtitle && (
+            <span className="text-sm text-muted-foreground">{subtitle}</span>
+          )}
+        </div>
       </div>
 
       <div className="flex items-center gap-2">
