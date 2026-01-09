@@ -93,6 +93,24 @@
           "author": "Alice",
           "content": "The new palette looks great!",
           "createdAt": "2025-01-15T10:30:00Z"
+        },
+        {
+          "id": "2",
+          "author": "John Doe",
+          "content": "Great insights!",
+          "createdAt": "2025-01-10T16:00:00Z"
+        }
+      ],
+      "attachments": [
+        {
+          "id": "a1",
+          "name": "design-tokens.json",
+          "type": "json"
+        },
+        {
+          "id": "a2",
+          "name": "color-palette.png",
+          "type": "png"
         }
       ]
     },
@@ -110,7 +128,19 @@
         { "id": "1", "title": "Document auth endpoints", "completed": false },
         { "id": "2", "title": "Add examples", "completed": false }
       ],
-      "comments": []
+      "comments": [],
+      "attachments": [
+        {
+          "id": "a1",
+          "name": "design-tokens.json",
+          "type": "json"
+        },
+        {
+          "id": "a2",
+          "name": "color-palette.png",
+          "type": "png"
+        }
+      ]
     },
     {
       "id": "3",
@@ -133,6 +163,18 @@
           "content": "Great insights!",
           "createdAt": "2025-01-10T16:00:00Z"
         }
+      ],
+      "attachments": [
+        {
+          "id": "a1",
+          "name": "design-tokens.json",
+          "type": "json"
+        },
+        {
+          "id": "a2",
+          "name": "color-palette.png",
+          "type": "png"
+        }
       ]
     },
     {
@@ -149,7 +191,8 @@
         { "id": "1", "title": "Audit performance", "completed": true },
         { "id": "2", "title": "Implement code splitting", "completed": false }
       ],
-      "comments": []
+      "comments": [],
+      "attachments": []
     },
     {
       "id": "5",
@@ -165,7 +208,8 @@
         { "id": "1", "title": "Write copy", "completed": false },
         { "id": "2", "title": "Design template", "completed": false }
       ],
-      "comments": []
+      "comments": [],
+      "attachments": []
     },
     {
       "id": "6",
@@ -189,7 +233,8 @@
           "content": "Onboarding looks fantastic!",
           "createdAt": "2025-01-12T16:00:00Z"
         }
-      ]
+      ],
+      "attachments": []
     },
     {
       "id": "7",
@@ -205,7 +250,8 @@
         { "id": "1", "title": "Schema conversion", "completed": false },
         { "id": "2", "title": "Data migration", "completed": false }
       ],
-      "comments": []
+      "comments": [],
+      "attachments": []
     },
     {
       "id": "8",
@@ -221,7 +267,8 @@
         { "id": "1", "title": "Content themes", "completed": true },
         { "id": "2", "title": "Schedule posts", "completed": true }
       ],
-      "comments": []
+      "comments": [],
+      "attachments": []
     }
   ]
 }
