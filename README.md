@@ -54,7 +54,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Team Members
 
-- **Lek Molika**
+- **Leak Chanmolika**
 - **Non Sorany**
 - **Kak Kannika**
 
