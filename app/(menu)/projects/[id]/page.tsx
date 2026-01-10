@@ -1,38 +1,65 @@
+"use client";
+
 import Link from "next/link";
-import { getProjects } from "@/lib/api/project";
-import { getTasks } from "@/lib/api/task";
+import { useParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@/components/ui/skeleton";
+
+import { getProjectById } from "@/lib/api/project";
+import { getTasksByProjectId } from "@/lib/api/task";
+import { getMembersByIds } from "@/lib/api/member";
+
 import TaskCard from "@/components/project/task";
 import MiniDashboard from "@/components/project/miniDashboard";
 import Member from "@/components/project/member";
-import { getMembers } from "@/lib/api/member";
-import type { Member as MemberType } from "@/validations/member";
-import { notFound } from "next/navigation";
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+export default function ProjectPage() {
+  const { id } = useParams<{ id: string }>();
 
-  const projects = await getProjects();
-  const tasks = await getTasks();
-  const allMembers = await getMembers();
+  const {
+    data: project,
+    isLoading: projectLoading,
+    isError: projectError,
+  } = useQuery({
+    queryKey: ["project", id],
+    queryFn: () => getProjectById(id),
+    enabled: !!id,
+  });
 
-  const project = projects.find((p) => p.id === id);
-  if (!project) return notFound();
+  const {
+    data: projectTasks = [],
+    isLoading: tasksLoading,
+  } = useQuery({
+    queryKey: ["tasks", project?.id],
+    queryFn: () => getTasksByProjectId(project!.id),
+    enabled: !!project?.id,
+  });
 
-  const projectTasks = tasks.filter((task) => task.projectId === project.id);
+  const {
+    data: members = [],
+    isLoading: membersLoading,
+  } = useQuery({
+    queryKey: ["project-members", project?.id],
+    queryFn: () => getMembersByIds(project!.members || []),
+    enabled: !!project?.members?.length,
+  });
+
+  if (projectLoading || tasksLoading || membersLoading) {
+    return <Skeleton className="h-32 w-full"/>;
+  }
+
+  if (projectError || !project) {
+    return (
+      <p className="p-6 text-red-500">
+        Project not found
+      </p>
+    );
+  }
 
   const totalTasks = projectTasks.length;
-  const completed = projectTasks.filter((t) => t.status === "done").length;
-  const inProgress = projectTasks.filter(
-    (t) => t.status === "in-progress"
-  ).length;
-  const todo = projectTasks.filter((t) => t.status === "todo").length;
-  const members = allMembers.filter(
-    (member) => project.members && project.members.includes(member.id)
-  );
+  const completed = projectTasks.filter(t => t.status === "done").length;
+  const inProgress = projectTasks.filter(t => t.status === "in-progress").length;
+  const todo = projectTasks.filter(t => t.status === "todo").length;
 
   return (
     <div className="p-6 space-y-8">
@@ -41,7 +68,9 @@ export default async function ProjectPage({
           Projects
         </Link>
         <span>/</span>
-        <span className="font-medium text-gray-900">{project.name}</span>
+        <span className="font-medium text-gray-900">
+          {project.name}
+        </span>
       </div>
 
       <div>
@@ -61,7 +90,7 @@ export default async function ProjectPage({
         {projectTasks.length === 0 ? (
           <p className="text-gray-500">No tasks for this project</p>
         ) : (
-          projectTasks.map((task) => (
+          projectTasks.map(task => (
             <TaskCard
               key={task.id}
               title={task.title}
@@ -76,15 +105,23 @@ export default async function ProjectPage({
         <h2 className="text-lg font-semibold">Team Members</h2>
 
         <div className="grid gap-3 md:grid-cols-2">
-          {members.map((member: MemberType) => (
-            <div className="flex items-center gap-4 p-4 border rounded-md">
+          {members.map(member => (
+            <div
+              key={member.id}
+              className="flex items-center gap-4 p-4 border rounded-md"
+            >
               <Member
-                key={member.name}
                 name={member.name}
                 secondaryText={member.position || ""}
               />
             </div>
           ))}
+
+          {members.length === 0 && (
+            <p className="text-sm text-gray-400">
+              No members assigned
+            </p>
+          )}
         </div>
       </div>
     </div>

@@ -2,7 +2,6 @@
 
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-
 import { Skeleton } from "@/components/ui/skeleton";
 import { getTaskById } from "@/lib/api/task";
 import { getMembers } from "@/lib/api/member";
