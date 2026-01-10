@@ -2,58 +2,39 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import {formatDueDate} from "@/utils/date"
+import { StatCard } from "@/components/dashboard/StatCard";
+import { TaskRow } from "@/components/dashboard/TaskRow";
+import { Project }  from "@/validations/project"
+import { Task  } from "@/validations/task"
 
-// Helper to get project name by id
-function getProjectName(projects: any[], id: string) {
+function getProjectName(projects: Project[], id: string) {
   const project = projects.find((p) => p.id === id);
   return project ? project.name : "";
 }
 
-// Helper to format due date
-function formatDueDate(dateStr: string) {
-  if (!dateStr) return "";
-  const date = new Date(dateStr);
-  if (isNaN(date.getTime())) return "";
-  const today = new Date();
-  if (
-    date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear()
-  )
-    return "Today";
-  const tomorrow = new Date(today);
-  tomorrow.setDate(today.getDate() + 1);
-  if (
-    date.getDate() === tomorrow.getDate() &&
-    date.getMonth() === tomorrow.getMonth() &&
-    date.getFullYear() === tomorrow.getFullYear()
-  )
-    return "Tomorrow";
-  return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
-}
-
-// Helper to get dashboard stats
-function getStats(tasks: any[]) {
+function getStats(tasks: Task[]) {
   const total = tasks.length;
   const completed = tasks.filter((t) => t.status === "done").length;
   const inProgress = tasks.filter((t) => t.status === "in-progress").length;
   const overdue = tasks.filter(
-    (t) => new Date(t.dueDate) < new Date() && t.status !== "done"
+    (t) => t.dueDate && new Date(t.dueDate) < new Date() && t.status !== "done"
   ).length;
   return { total, completed, inProgress, overdue };
 }
 
-// Helper to get recent tasks (sorted by due date)
-function getRecentTasks(tasks: any[], count = 5) {
+function getRecentTasks(tasks: Task[], count = 5) {
   return [...tasks]
-    .sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime())
+    .sort((a, b) => {
+      const aTime = a.dueDate ? new Date(a.dueDate).getTime() : Infinity;
+      const bTime = b.dueDate ? new Date(b.dueDate).getTime() : Infinity;
+      return aTime - bTime;
+    })
     .slice(0, count);
 }
 
-// React Query fetch function
 async function fetchDBData() {
   const res = await fetch("/db.json");
   if (!res.ok) throw new Error("Failed to fetch dashboard data");
@@ -107,13 +88,11 @@ export default function Dashboard() {
 
   return (
     <div className="p-8">
-      {/* Header */}
       <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-1">
         Dashboard
       </h1>
       <p className="text-lg text-zinc-500 mb-8">Welcome back, John</p>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
         <StatCard
           title="Total Tasks"
@@ -141,7 +120,6 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Recent Tasks */}
       <Card className="rounded-lg shadow p-6 bg-white dark:bg-zinc-900">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Recent Tasks</h2>
@@ -150,7 +128,7 @@ export default function Dashboard() {
           </Button>
         </div>
         <ul>
-          {recentTasks.map((task: any) => (
+          {recentTasks.map((task: Task) => (
             <TaskRow
               key={task.id}
               checked={task.status === "done"}
@@ -163,91 +141,5 @@ export default function Dashboard() {
         </ul>
       </Card>
     </div>
-  );
-}
-
-// --- UI Components ---
-
-function StatCard({ title, value, change, icon }: any) {
-  return (
-    <Card className="rounded-lg shadow p-6 flex flex-col gap-2 bg-white dark:bg-zinc-900">
-      <div className="flex justify-between items-center">
-        <span className="text-lg font-semibold">{title}</span>
-        {icon}
-      </div>
-      <span className="text-3xl font-bold">{value}</span>
-      <span className="text-green-500 text-sm">{change} from last week</span>
-    </Card>
-  );
-}
-
-function TaskRow({
-  checked,
-  title,
-  project,
-  status,
-  due,
-}: {
-  checked: boolean;
-  title: string;
-  project: string;
-  status: "done" | "in-progress" | "todo";
-  due: string;
-}) {
-  return (
-    <li className="flex items-center justify-between py-3 border-b last:border-b-0">
-      <div className="flex items-center gap-3">
-        <input
-          type="checkbox"
-          checked={checked}
-          readOnly
-          className="accent-black"
-        />
-        <div>
-          <span
-            className={`font-medium ${
-              checked ? "line-through text-zinc-400" : ""
-            }`}
-          >
-            {title}
-          </span>
-          <span className="block text-xs text-zinc-400">{project}</span>
-        </div>
-      </div>
-      <div className="flex items-center gap-2">
-        <StatusBadge status={status} />
-        <DueBadge due={due} />
-      </div>
-    </li>
-  );
-}
-
-function StatusBadge({ status }: { status: string }) {
-  if (status === "done")
-    return (
-      <Badge className="bg-green-100 text-green-700 border-green-200">
-        Done
-      </Badge>
-    );
-  if (status === "in-progress")
-    return (
-      <Badge className="bg-orange-100 text-orange-700 border-orange-200">
-        In Progress
-      </Badge>
-    );
-  return (
-    <Badge variant="secondary">
-      To Do
-    </Badge>
-  );
-}
-
-function DueBadge({ due }: { due: string }) {
-  let color = "bg-zinc-200 text-zinc-700";
-  if (due === "Today") color = "bg-red-100 text-red-700";
-  if (due === "Tomorrow") color = "bg-yellow-100 text-yellow-700";
-  if (due === "Jan 10") color = "bg-blue-100 text-blue-700";
-  return (
-    <Badge className={`text-xs ${color}`}>{due}</Badge>
   );
 }
