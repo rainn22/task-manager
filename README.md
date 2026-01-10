@@ -1,18 +1,64 @@
+# Task Manager (Next.js)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install dependencies
 
-pnpm dev
+If you use **pnpm** (recommended):
 
+```sh
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Or with **npm**:
+
+```sh
+npm install
+```
+
+Or with **yarn**:
+
+```sh
+yarn install
+```
+
+### 2. Run the development server
+
+```sh
+pnpm dev
+```
+Or:
+```sh
+npm run dev
+```
+Or:
+```sh
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+
+---
+
+## Editing
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+---
+
+## Team Members
+
+- **Lek Molika**
+- **Non Sorany**
+- **Kak Kannika**
+
+---
 
 ## Learn More
 
@@ -22,6 +68,8 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+---
 
 ## Deploy on Vercel
 
