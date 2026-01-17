@@ -4,11 +4,14 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import {formatDueDate} from "@/utils/date"
+import { formatDueDate } from "@/utils/date";
 import { StatCard } from "@/components/dashboard/StatCard";
 import { TaskRow } from "@/components/dashboard/TaskRow";
-import { Project }  from "@/validations/project"
-import { Task  } from "@/validations/task"
+import { Project } from "@/validations/project";
+import { Task } from "@/validations/task";
+import { getTasks } from "@/lib/api/task";
+import { getProjects } from "@/lib/api/project";
+import { getMembers } from "@/lib/api/member";
 
 function getProjectName(projects: Project[], id: string) {
   const project = projects.find((p) => p.id === id);
@@ -20,46 +23,46 @@ function getStats(tasks: Task[]) {
   const completed = tasks.filter((t) => t.status === "done").length;
   const inProgress = tasks.filter((t) => t.status === "in-progress").length;
   const overdue = tasks.filter(
-    (t) => t.dueDate && new Date(t.dueDate) < new Date() && t.status !== "done"
+    (t) => t.dueDate && new Date(t.dueDate) < new Date() && t.status !== "done",
   ).length;
   return { total, completed, inProgress, overdue };
 }
 
-function getRecentTasks(tasks: Task[], count = 5) {
+function getRecentTasks(tasks: any[], count = 5) {
   return [...tasks]
-    .sort((a, b) => {
-      const aTime = a.dueDate ? new Date(a.dueDate).getTime() : Infinity;
-      const bTime = b.dueDate ? new Date(b.dueDate).getTime() : Infinity;
-      return aTime - bTime;
-    })
+    .filter((t) => t.dueDate)
+    .sort(
+      (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime(),
+    )
     .slice(0, count);
-}
-
-async function fetchDBData() {
-  const res = await fetch("/db.json");
-  if (!res.ok) throw new Error("Failed to fetch dashboard data");
-  return res.json();
 }
 
 export default function Dashboard() {
   const queryClient = useQueryClient();
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["dashboard-db"],
-    queryFn: fetchDBData,
+
+  const tasksQuery = useQuery({
+    queryKey: ["tasks"],
+    queryFn: getTasks,
   });
 
-  if (isLoading) {
+  const projectsQuery = useQuery({
+    queryKey: ["projects"],
+    queryFn: getProjects,
+  });
+
+  const membersQuery = useQuery({
+    queryKey: ["members"],
+    queryFn: getMembers,
+  });
+
+  if (
+    tasksQuery.isLoading ||
+    projectsQuery.isLoading ||
+    membersQuery.isLoading
+  ) {
     return (
       <div className="p-8">
-        <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100">
-          Dashboard
-        </h1>
-        <p className="text-lg text-zinc-500 mb-8">Welcome back, John</p>
+        <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
         <Skeleton className="h-8 w-1/3 mb-4" />
         <Skeleton className="h-32 w-full mb-4" />
         <Skeleton className="h-64 w-full" />
@@ -67,57 +70,36 @@ export default function Dashboard() {
     );
   }
 
-  if (isError) {
+  if (tasksQuery.isError || projectsQuery.isError || membersQuery.isError) {
     return (
       <div className="p-8">
-        <h1 className="text-4xl font-bold text-red-700 dark:text-red-400">
-          Error
-        </h1>
-        <p className="text-red-500 mt-2">
-          {(error as Error).message || "Failed to load dashboard."}
-        </p>
-        <Button onClick={() => queryClient.invalidateQueries({ queryKey: ["dashboard-db"] })}>
-          Retry
-        </Button>
+        <h1 className="text-4xl font-bold text-red-600">Error</h1>
+        <Button onClick={() => queryClient.invalidateQueries()}>Retry</Button>
       </div>
     );
   }
 
-  const stats = getStats(data.tasks);
-  const recentTasks = getRecentTasks(data.tasks);
+  const tasks = tasksQuery.data!;
+  const projects = projectsQuery.data!;
+  const members = membersQuery.data!;
+
+  const stats = getStats(tasks);
+  const recentTasks = getRecentTasks(tasks);
 
   return (
     <div className="p-8">
       <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-1">
         Dashboard
       </h1>
-      <p className="text-lg text-zinc-500 mb-8">Welcome back, John</p>
+      <p className="text-lg text-zinc-500 mb-8">
+        Welcome back, {members[0]?.name}
+      </p>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
-        <StatCard
-          title="Total Tasks"
-          value={stats.total}
-          change="+12%"
-         
-        />
-        <StatCard
-          title="Completed"
-          value={stats.completed}
-          change="+8%"
-        
-        />
-        <StatCard
-          title="In Progress"
-          value={stats.inProgress}
-          change="+5%"
-         
-        />
-        <StatCard
-          title="Overdue"
-          value={stats.overdue}
-          change="-2%"
-         
-        />
+        <StatCard title="Total Tasks" value={stats.total} change="+12%" />
+        <StatCard title="Completed" value={stats.completed} change="+8%" />
+        <StatCard title="In Progress" value={stats.inProgress} change="+5%" />
+        <StatCard title="Overdue" value={stats.overdue} change="-2%" />
       </div>
 
       <Card className="rounded-lg shadow p-6 bg-white dark:bg-zinc-900">
@@ -133,7 +115,7 @@ export default function Dashboard() {
               key={task.id}
               checked={task.status === "done"}
               title={task.title}
-              project={getProjectName(data.projects, task.projectId)}
+              project={getProjectName(projects, task.projectId)}
               status={task.status}
               due={formatDueDate(task.dueDate)}
             />
