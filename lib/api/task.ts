@@ -1,6 +1,6 @@
 import { CreateTask, Task, TaskSchema } from "@/validations/task";
 
-const API_URL = "http://localhost:3001";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
 export async function getTasksByProjectId(projectId: string): Promise<Task[]> {
   const res = await fetch(`${API_URL}/tasks?projectId=${projectId}`, {
@@ -51,4 +51,13 @@ export async function createTask(data: CreateTask): Promise<Task> {
   }
   const json = await res.json();
   return TaskSchema.parse(json);
+}
+
+export async function deleteTask(id: string): Promise<void> {
+  const res = await fetch(`${API_URL}/tasks/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) {
+    throw new Error("Failed to delete task");
+  }
 }
