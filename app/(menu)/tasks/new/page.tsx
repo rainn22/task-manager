@@ -27,6 +27,10 @@ import { Project } from "@/validations/project";
 import { getProjects } from "@/lib/api/project";
 import { createTask } from "@/lib/api/task";
 import { CreateTask, CreateTaskSchema } from "@/validations/task";
+import { Label } from "@/components/ui/label";
+import { Member } from "@/validations/member";
+import { getMembers } from "@/lib/api/member";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function AddTask() {
   const router = useRouter();
@@ -39,6 +43,19 @@ export default function AddTask() {
     queryKey: ["projects"],
     queryFn: getProjects,
   });
+
+  const {
+    data: members,
+    isLoading: membersLoading,
+    isError: membersError,
+  } = useQuery<Member[]>({
+    queryKey: ["members"],
+    queryFn: getMembers,
+  });
+
+  if (membersLoading) return <p>Loading...</p>;
+  if (membersError)
+    return <p className="text-red-500">Failed to load members</p>;
 
   const { control, handleSubmit } = useForm<CreateTask>({
     resolver: zodResolver(CreateTaskSchema),
@@ -242,6 +259,97 @@ export default function AddTask() {
                       Due Date <span className="text-red-500">*</span>
                     </FieldLabel>
                     <Input type="date" {...field} />
+                    {fieldState.error && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="assignees"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="assignees">Assignees</FieldLabel>
+                    <div className="grid grid-cols-2 gap-2">
+                      {members?.map((member) => (
+                        <div
+                          key={member.id}
+                          className="flex items-center space-x-2"
+                        >
+                          <Checkbox
+                            id={`assignee-${member.id}`}
+                            checked={field.value?.includes(member.id) || false}
+                            onCheckedChange={(checked) => {
+                              const current = field.value || [];
+                              if (checked) {
+                                field.onChange([...current, member.id]);
+                              } else {
+                                field.onChange(
+                                  current.filter((id) => id !== member.id),
+                                );
+                              }
+                            }}
+                          />
+                          <Label
+                            htmlFor={`assignee-${member.id}`}
+                            className="text-sm"
+                          >
+                            {member.name}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                    {fieldState.error && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                name="attachments"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="attachments">Attachments</FieldLabel>
+                    <div className="space-y-2">
+                      {field.value?.map((attachment) => (
+                        <div
+                          key={attachment.id}
+                          className="flex items-center justify-between p-2 border rounded"
+                        >
+                          <span>{attachment.name}</span>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              const current = field.value || [];
+                              field.onChange(
+                                current.filter((a) => a.id !== attachment.id),
+                              );
+                            }}
+                          >
+                            Remove
+                          </Button>
+                        </div>
+                      ))}
+                      <Input
+                        type="file"
+                        multiple
+                        onChange={(e) => {
+                          const files = Array.from(e.target.files || []);
+                          const newAttachments = files.map((file) => ({
+                            id: Math.random().toString(36).substr(2, 9), // temp id
+                            name: file.name,
+                            type: file.type,
+                          }));
+                          const current = field.value || [];
+                          field.onChange([...current, ...newAttachments]);
+                        }}
+                      />
+                    </div>
                     {fieldState.error && (
                       <FieldError errors={[fieldState.error]} />
                     )}

@@ -113,6 +113,7 @@ export default function Dashboard() {
           {recentTasks.map((task: Task) => (
             <TaskRow
               key={task.id}
+              id={task.id}
               checked={task.status === "done"}
               title={task.title}
               project={getProjectName(projects, task.projectId)}

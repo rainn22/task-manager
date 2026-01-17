@@ -1,9 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { statusBadgeClasses, statusLabels } from "@/lib/utils";
 import { Task } from "@/validations/task";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Edit } from "lucide-react";
 
 export default function TaskHeader({ task }: { task: Task }) {
   return (
@@ -15,12 +12,6 @@ export default function TaskHeader({ task }: { task: Task }) {
             {statusLabels[task.status]}
           </Badge>
         </div>
-        <Button variant="outline" size="sm" asChild>
-          <Link href={`/tasks/${task.id}/edit`}>
-            <Edit className="h-4 w-4 mr-2" />
-            Edit
-          </Link>
-        </Button>
       </div>
       <h4 className="font-medium">Description</h4>
       <p className="text-muted-foreground">{task.description}</p>
