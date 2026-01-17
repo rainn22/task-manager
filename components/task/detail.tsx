@@ -5,7 +5,8 @@ import { Member as MemberSchema } from "@/validations/member";
 import { Project } from "@/validations/project";
 import { Button } from "../ui/button";
 import { Plus, Calendar, Paperclip, Flag } from "lucide-react";
-import formatDate, { priorityColors } from "@/lib/utils";
+import formatDate, { priorityColors, statusBadgeClasses } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import {
   Select,
   SelectContent,
@@ -35,7 +36,7 @@ export default function TaskDetails({
             Status
           </Label>
           <Select defaultValue={task.status}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger className={cn("w-full", statusBadgeClasses[task.status])}>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

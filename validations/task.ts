@@ -50,6 +50,8 @@ export const CreateTaskSchema = TaskSchema.pick({
   priority: true,
   dueDate: true,
   status: true,
+  assignees: true,
+  attachments: true,
 });
 
 export type CreateTask = z.infer<typeof CreateTaskSchema>;

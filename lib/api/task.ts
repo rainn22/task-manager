@@ -1,4 +1,4 @@
-import { CreateTask, Task, TaskSchema } from "@/validations/task";
+import { Task, TaskSchema, CreateTask } from "@/validations/task";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
@@ -48,6 +48,34 @@ export async function createTask(data: CreateTask): Promise<Task> {
 
   if (!res.ok) {
     throw new Error("Failed to create task");
+  }
+  const json = await res.json();
+  return TaskSchema.parse(json);
+}
+
+export async function updateTask(id: string, data: CreateTask): Promise<Task> {
+  const res = await fetch(`${API_URL}/tasks/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to update task");
+  }
+  const json = await res.json();
+  return TaskSchema.parse(json);
+}
+
+export async function patchTask(id: string, data: Partial<CreateTask>): Promise<Task> {
+  const res = await fetch(`${API_URL}/tasks/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to patch task");
   }
   const json = await res.json();
   return TaskSchema.parse(json);
