@@ -17,7 +17,6 @@ export const CommentSchema = z.object({
 
 export type Comment = z.infer<typeof CommentSchema>;
 
-
 export const AttachmentSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -28,15 +27,14 @@ export type Attachment = z.infer<typeof AttachmentSchema>;
 
 export const TaskSchema = z.object({
   id: z.string(),
-  title: z.string(),
-  description: z.string(),
-  projectId: z.string(),
+  title: z.string().min(1, "Title is required"),
+  description: z.string().min(1, "Description is required"),
+  projectId: z.string().min(1, "Project is required"),
+  priority: z.enum(["low", "medium", "high"]),
   status: z.enum(["todo", "in-progress", "done"]),
-  priority: z.enum(["low", "medium", "high"]).optional(),
+  dueDate: z.string().min(1, "Due date is required"),
   assignees: z.array(z.string()).optional(),
-  dueDate: z.string().optional(),
   tags: z.array(z.string()).optional(),
-
   subtasks: z.array(SubtaskSchema).optional(),
   comments: z.array(CommentSchema).optional(),
   attachments: z.array(AttachmentSchema).optional(),
@@ -44,3 +42,14 @@ export const TaskSchema = z.object({
 
 export type Task = z.infer<typeof TaskSchema>;
 export type TaskStatus = Task["status"];
+
+export const CreateTaskSchema = TaskSchema.pick({
+  title: true,
+  description: true,
+  projectId: true,
+  priority: true,
+  dueDate: true,
+  status: true,
+});
+
+export type CreateTask = z.infer<typeof CreateTaskSchema>;
