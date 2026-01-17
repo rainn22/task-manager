@@ -22,7 +22,7 @@ export default function TaskDetails({
 }: {
   task: Task;
   members: MemberSchema[];
-  project?: Project;
+  project?: Project | null;
 }) {
   const assignees = members.filter((m) => task.assignees?.includes(m.id));
   const attachments = task.attachments ?? [];

@@ -22,7 +22,6 @@ export default function TaskHeader({ task }: { task: Task }) {
           </Link>
         </Button>
       </div>
-
       <h4 className="font-medium">Description</h4>
       <p className="text-muted-foreground">{task.description}</p>
     </section>

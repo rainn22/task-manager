@@ -15,7 +15,7 @@ export default function Member({ name, meta, secondaryText }: MemberProps) {
 
   return (
     <div className="flex items-center gap-3">
-      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-sm font-medium">
+      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center text-black text-sm font-medium">
         {initials}
       </div>
 
