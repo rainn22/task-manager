@@ -44,3 +44,16 @@ export const TaskSchema = z.object({
 
 export type Task = z.infer<typeof TaskSchema>;
 export type TaskStatus = Task["status"];
+
+export const CreateTaskSchema = TaskSchema.pick({
+  title: true,
+  description: true,
+  projectId: true,
+  priority: true,
+  dueDate: true,
+  status: true,
+  assignees: true,
+  attachments: true,
+});
+
+export type CreateTask = z.infer<typeof CreateTaskSchema>;
