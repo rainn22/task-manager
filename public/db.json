@@ -31,7 +31,6 @@
       "email": "sarah@example.com"
     }
   ],
-
   "projects": [
     {
       "id": "1",
@@ -43,7 +42,11 @@
       "tasksTotal": 8,
       "tasksCompleted": 5,
       "dueDate": "2025-03-31",
-      "members": ["m1", "m2", "m5"]
+      "members": [
+        "m1",
+        "m2",
+        "m5"
+      ]
     },
     {
       "id": "2",
@@ -55,7 +58,11 @@
       "tasksTotal": 12,
       "tasksCompleted": 7,
       "dueDate": "2025-02-15",
-      "members": ["m1", "m2", "m3"]
+      "members": [
+        "m1",
+        "m2",
+        "m3"
+      ]
     },
     {
       "id": "3",
@@ -67,25 +74,47 @@
       "tasksTotal": 10,
       "tasksCompleted": 4,
       "dueDate": "2025-04-30",
-      "members": ["m1", "m3", "m4"]
+      "members": [
+        "m1",
+        "m3",
+        "m4"
+      ]
     }
   ],
-
   "tasks": [
     {
       "id": "1",
-      "title": "Design system color palette update",
+      "title": "Design system color palette update bla bla",
       "description": "Update the design system to include new color palette with improved accessibility.",
       "projectId": "2",
       "status": "in-progress",
-      "priority": "high",
+      "priority": "medium",
       "dueDate": "2025-01-20",
-      "tags": ["design", "accessibility"],
-      "assignees": ["m2", "m3"],
+      "tags": [
+        "design",
+        "accessibility"
+      ],
+      "assignees": [
+        "m2",
+        "m3",
+        "m4"
+      ],
       "subtasks": [
-        { "id": "1", "title": "Audit current color tokens", "completed": true },
-        { "id": "2", "title": "Create new color palette", "completed": true },
-        { "id": "3", "title": "Test contrast ratios", "completed": false }
+        {
+          "id": "1",
+          "title": "Audit current color tokens",
+          "completed": true
+        },
+        {
+          "id": "2",
+          "title": "Create new color palette",
+          "completed": true
+        },
+        {
+          "id": "3",
+          "title": "Test contrast ratios",
+          "completed": false
+        }
       ],
       "comments": [
         {
@@ -118,23 +147,34 @@
       "id": "2",
       "title": "API documentation",
       "description": "Comprehensive documentation update for all REST API endpoints.",
-      "projectId": "3",
-      "status": "todo",
+      "projectId": "2",
+      "status": "done",
       "priority": "medium",
       "dueDate": "2025-01-25",
-      "tags": ["documentation", "api"],
-      "assignees": ["m4"],
+      "tags": [
+        "documentation",
+        "api"
+      ],
+      "assignees": [
+        "m4",
+        "m3",
+        "m5",
+        "m2"
+      ],
       "subtasks": [
-        { "id": "1", "title": "Document auth endpoints", "completed": false },
-        { "id": "2", "title": "Add examples", "completed": false }
+        {
+          "id": "1",
+          "title": "Document auth endpoints",
+          "completed": false
+        },
+        {
+          "id": "2",
+          "title": "Add examples",
+          "completed": false
+        }
       ],
       "comments": [],
       "attachments": [
-        {
-          "id": "a1",
-          "name": "design-tokens.json",
-          "type": "json"
-        },
         {
           "id": "a2",
           "name": "color-palette.png",
@@ -150,11 +190,24 @@
       "status": "done",
       "priority": "low",
       "dueDate": "2025-01-10",
-      "tags": ["research", "ux"],
-      "assignees": ["m1"],
+      "tags": [
+        "research",
+        "ux"
+      ],
+      "assignees": [
+        "m1"
+      ],
       "subtasks": [
-        { "id": "1", "title": "Transcribe interviews", "completed": true },
-        { "id": "2", "title": "Create presentation", "completed": true }
+        {
+          "id": "1",
+          "title": "Transcribe interviews",
+          "completed": true
+        },
+        {
+          "id": "2",
+          "title": "Create presentation",
+          "completed": true
+        }
       ],
       "comments": [
         {
@@ -185,11 +238,25 @@
       "status": "in-progress",
       "priority": "high",
       "dueDate": "2025-01-22",
-      "tags": ["performance", "frontend"],
-      "assignees": ["m3", "m4"],
+      "tags": [
+        "performance",
+        "frontend"
+      ],
+      "assignees": [
+        "m3",
+        "m4"
+      ],
       "subtasks": [
-        { "id": "1", "title": "Audit performance", "completed": true },
-        { "id": "2", "title": "Implement code splitting", "completed": false }
+        {
+          "id": "1",
+          "title": "Audit performance",
+          "completed": true
+        },
+        {
+          "id": "2",
+          "title": "Implement code splitting",
+          "completed": false
+        }
       ],
       "comments": [],
       "attachments": []
@@ -202,11 +269,25 @@
       "status": "todo",
       "priority": "medium",
       "dueDate": "2025-01-28",
-      "tags": ["marketing", "email"],
-      "assignees": ["m2", "m5"],
+      "tags": [
+        "marketing",
+        "email"
+      ],
+      "assignees": [
+        "m2",
+        "m5"
+      ],
       "subtasks": [
-        { "id": "1", "title": "Write copy", "completed": false },
-        { "id": "2", "title": "Design template", "completed": false }
+        {
+          "id": "1",
+          "title": "Write copy",
+          "completed": false
+        },
+        {
+          "id": "2",
+          "title": "Design template",
+          "completed": false
+        }
       ],
       "comments": [],
       "attachments": []
@@ -215,16 +296,35 @@
       "id": "6",
       "title": "Mobile app wireframes",
       "description": "Create wireframes for iOS and Android app.",
-      "projectId": "2",
-      "status": "in-progress",
+      "projectId": "3",
+      "status": "done",
       "priority": "high",
       "dueDate": "2025-01-18",
-      "tags": ["design", "mobile"],
-      "assignees": ["m2", "m3"],
+      "tags": [
+        "design",
+        "mobile"
+      ],
+      "assignees": [
+        "m2",
+        "m3",
+        "m4"
+      ],
       "subtasks": [
-        { "id": "1", "title": "Onboarding flow", "completed": true },
-        { "id": "2", "title": "Dashboard screens", "completed": true },
-        { "id": "3", "title": "Settings screens", "completed": false }
+        {
+          "id": "1",
+          "title": "Onboarding flow",
+          "completed": true
+        },
+        {
+          "id": "2",
+          "title": "Dashboard screens",
+          "completed": true
+        },
+        {
+          "id": "3",
+          "title": "Settings screens",
+          "completed": false
+        }
       ],
       "comments": [
         {
@@ -244,11 +344,24 @@
       "status": "todo",
       "priority": "high",
       "dueDate": "2025-02-05",
-      "tags": ["backend", "database"],
-      "assignees": ["m4"],
+      "tags": [
+        "backend",
+        "database"
+      ],
+      "assignees": [
+        "m4"
+      ],
       "subtasks": [
-        { "id": "1", "title": "Schema conversion", "completed": false },
-        { "id": "2", "title": "Data migration", "completed": false }
+        {
+          "id": "1",
+          "title": "Schema conversion",
+          "completed": false
+        },
+        {
+          "id": "2",
+          "title": "Data migration",
+          "completed": false
+        }
       ],
       "comments": [],
       "attachments": []
@@ -261,11 +374,25 @@
       "status": "done",
       "priority": "medium",
       "dueDate": "2025-01-08",
-      "tags": ["marketing", "social"],
-      "assignees": ["m2", "m5"],
+      "tags": [
+        "marketing",
+        "social"
+      ],
+      "assignees": [
+        "m2",
+        "m5"
+      ],
       "subtasks": [
-        { "id": "1", "title": "Content themes", "completed": true },
-        { "id": "2", "title": "Schedule posts", "completed": true }
+        {
+          "id": "1",
+          "title": "Content themes",
+          "completed": true
+        },
+        {
+          "id": "2",
+          "title": "Schedule posts",
+          "completed": true
+        }
       ],
       "comments": [],
       "attachments": []
