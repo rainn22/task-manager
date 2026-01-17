@@ -1,13 +1,16 @@
+import Link from "next/link";
 import { DueBadge } from "./StatCard";
 import { StatusBadge } from "./StatusBadge";
 
 export function TaskRow({
+  id,
   checked,
   title,
   project,
   status,
   due,
 }: {
+  id: string;
   checked: boolean;
   title: string;
   project: string;
@@ -29,7 +32,11 @@ export function TaskRow({
               checked ? "line-through text-zinc-400" : ""
             }`}
           >
-            {title}
+            <Link
+              href={`/tasks/${id}`}
+            >
+              {title}
+            </Link>
           </span>
           <span className="block text-xs text-zinc-400">{project}</span>
         </div>
