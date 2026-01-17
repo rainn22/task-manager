@@ -10,6 +10,7 @@ import TaskBreadcrumb from "@/components/task/breadcrumb";
 import TaskSubtasks from "@/components/task/subtask";
 import TaskComments from "@/components/task/comment";
 import TaskDetails from "@/components/task/detail";
+import TaskHeader from "@/components/task/header";
 
 export default function TaskDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -38,6 +39,7 @@ export default function TaskDetailPage() {
   return (
     <div className="md:px-6 space-y-6">
       <TaskBreadcrumb title={task.title} />
+      <TaskHeader task={task} />
       <TaskSubtasks subtasks={task.subtasks ?? []} />
       <TaskComments comments={task.comments ?? []} />
       <TaskDetails
