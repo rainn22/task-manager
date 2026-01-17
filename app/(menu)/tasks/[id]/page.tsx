@@ -7,7 +7,6 @@ import { getTaskById } from "@/lib/api/task";
 import { getMembers } from "@/lib/api/member";
 import { getProjectById } from "@/lib/api/project";
 import TaskBreadcrumb from "@/components/task/breadcrumb";
-import TaskHeader from "@/components/task/header";
 import TaskSubtasks from "@/components/task/subtask";
 import TaskComments from "@/components/task/comment";
 import TaskDetails from "@/components/task/detail";
@@ -39,7 +38,6 @@ export default function TaskDetailPage() {
   return (
     <div className="md:px-6 space-y-6">
       <TaskBreadcrumb title={task.title} />
-      <TaskHeader task={task} />
       <TaskSubtasks subtasks={task.subtasks ?? []} />
       <TaskComments comments={task.comments ?? []} />
       <TaskDetails
