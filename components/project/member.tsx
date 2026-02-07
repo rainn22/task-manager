@@ -7,11 +7,11 @@ type MemberProps = {
 export default function Member({ name, meta, secondaryText }: MemberProps) {
   const initials = name
     ? name
-        .split(" ")
+        .split(' ')
         .slice(0, 2)
         .map((n) => n[0]?.toUpperCase())
-        .join("")
-    : "•";
+        .join('')
+    : '•';
 
   return (
     <div className="flex items-center gap-3">
@@ -24,15 +24,11 @@ export default function Member({ name, meta, secondaryText }: MemberProps) {
           <div className="flex items-center gap-2">
             <p className="text-sm font-medium">{name}</p>
 
-            {meta && (
-              <span className="text-xs text-muted-foreground">{meta}</span>
-            )}
+            {meta && <span className="text-xs text-muted-foreground">{meta}</span>}
           </div>
 
           {secondaryText && (
-            <p className="text-sm text-muted-foreground whitespace-pre-line">
-              {secondaryText}
-            </p>
+            <p className="text-sm text-muted-foreground whitespace-pre-line">{secondaryText}</p>
           )}
         </div>
       )}

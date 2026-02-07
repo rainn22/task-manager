@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
+import React from 'react';
+import { useParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 
-import { Project } from "@/validations/project";
-import { getProjects } from "@/lib/api/project";
-import { getTaskById } from "@/lib/api/task";
-import { getMembers } from "@/lib/api/member";
-import { Member } from "@/validations/member";
-import EditTaskForm from "@/components/task/EditTaskForm";
+import { Project } from '@/validations/project';
+import { getProjects } from '@/lib/api/project';
+import { getTaskById } from '@/lib/api/task';
+import { getMembers } from '@/lib/api/member';
+import { Member } from '@/validations/member';
+import EditTaskForm from '@/components/task/EditTaskForm';
 
 export default function EditTask() {
   const { id } = useParams<{ id: string }>();
@@ -19,7 +19,7 @@ export default function EditTask() {
     isLoading: taskLoading,
     isError: taskError,
   } = useQuery({
-    queryKey: ["task", id],
+    queryKey: ['task', id],
     queryFn: () => getTaskById(id),
     enabled: !!id,
   });
@@ -29,7 +29,7 @@ export default function EditTask() {
     isLoading: projectsLoading,
     isError: projectsError,
   } = useQuery<Project[]>({
-    queryKey: ["projects"],
+    queryKey: ['projects'],
     queryFn: getProjects,
   });
 
@@ -38,7 +38,7 @@ export default function EditTask() {
     isLoading: membersLoading,
     isError: membersError,
   } = useQuery<Member[]>({
-    queryKey: ["members"],
+    queryKey: ['members'],
     queryFn: getMembers,
   });
 

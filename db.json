@@ -127,9 +127,9 @@
       "id": "3",
       "title": "User research analysis",
       "description": "Compile findings from recent user interviews.",
-      "projectId": "1",
-      "status": "done",
-      "priority": "low",
+      "projectId": "2",
+      "status": "in-progress",
+      "priority": "medium",
       "dueDate": "2025-01-10",
       "tags": [
         "research",

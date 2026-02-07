@@ -1,17 +1,13 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import Providers from "./providers";
+import type { Metadata } from 'next';
+import './globals.css';
+import Providers from './providers';
 
 export const metadata: Metadata = {
-  title: "Task Manager",
-  description: "Connect and manage your tasks efficiently.",
+  title: 'Task Manager',
+  description: 'Connect and manage your tasks efficiently.',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>

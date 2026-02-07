@@ -1,14 +1,14 @@
 export function formatDueDate(dateStr: string | null | undefined) {
-  if (!dateStr) return "";
+  if (!dateStr) return '';
   const date = new Date(dateStr);
-  if (isNaN(date.getTime())) return "";
+  if (isNaN(date.getTime())) return '';
   const today = new Date();
   if (
     date.getDate() === today.getDate() &&
     date.getMonth() === today.getMonth() &&
     date.getFullYear() === today.getFullYear()
   )
-    return "Today";
+    return 'Today';
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
   if (
@@ -16,6 +16,6 @@ export function formatDueDate(dateStr: string | null | undefined) {
     date.getMonth() === tomorrow.getMonth() &&
     date.getFullYear() === tomorrow.getFullYear()
   )
-    return "Tomorrow";
-  return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    return 'Tomorrow';
+  return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
 }
