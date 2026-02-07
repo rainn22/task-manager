@@ -12,10 +12,7 @@ type ProgressProps = ProgressPrimitiveProps;
 function Progress({ className, ...props }: ProgressProps) {
   return (
     <ProgressPrimitive
-      className={cn(
-        'bg-primary/20 relative h-2 w-full overflow-hidden rounded-full',
-        className,
-      )}
+      className={cn('bg-primary/20 relative h-2 w-full overflow-hidden rounded-full', className)}
       {...props}
     >
       <ProgressIndicatorPrimitive className="bg-primary rounded-full h-full w-full flex-1" />

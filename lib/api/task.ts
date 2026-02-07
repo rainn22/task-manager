@@ -1,14 +1,14 @@
-import { Task, TaskSchema, CreateTask } from "@/validations/task";
+import { Task, TaskSchema, CreateTask } from '@/validations/task';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
 
 export async function getTasksByProjectId(projectId: string): Promise<Task[]> {
   const res = await fetch(`${API_URL}/tasks?projectId=${projectId}`, {
-    cache: "no-store",
+    cache: 'no-store',
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch project tasks");
+    throw new Error('Failed to fetch project tasks');
   }
   const json = await res.json();
   return TaskSchema.array().parse(json);
@@ -16,11 +16,11 @@ export async function getTasksByProjectId(projectId: string): Promise<Task[]> {
 
 export async function getTaskById(id: string): Promise<Task> {
   const res = await fetch(`${API_URL}/tasks/${id}`, {
-    cache: "no-store",
+    cache: 'no-store',
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch task");
+    throw new Error('Failed to fetch task');
   }
   const json = await res.json();
   return TaskSchema.parse(json);
@@ -28,11 +28,11 @@ export async function getTaskById(id: string): Promise<Task> {
 
 export async function getTasks(): Promise<Task[]> {
   const res = await fetch(`${API_URL}/tasks`, {
-    cache: "no-store",
+    cache: 'no-store',
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch tasks");
+    throw new Error('Failed to fetch tasks');
   }
 
   const json = await res.json();
@@ -41,13 +41,13 @@ export async function getTasks(): Promise<Task[]> {
 
 export async function createTask(data: CreateTask): Promise<Task> {
   const res = await fetch(`${API_URL}/tasks`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
 
   if (!res.ok) {
-    throw new Error("Failed to create task");
+    throw new Error('Failed to create task');
   }
   const json = await res.json();
   return TaskSchema.parse(json);
@@ -55,13 +55,13 @@ export async function createTask(data: CreateTask): Promise<Task> {
 
 export async function updateTask(id: string, data: CreateTask): Promise<Task> {
   const res = await fetch(`${API_URL}/tasks/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
 
   if (!res.ok) {
-    throw new Error("Failed to update task");
+    throw new Error('Failed to update task');
   }
   const json = await res.json();
   return TaskSchema.parse(json);
@@ -69,13 +69,13 @@ export async function updateTask(id: string, data: CreateTask): Promise<Task> {
 
 export async function patchTask(id: string, data: Partial<CreateTask>): Promise<Task> {
   const res = await fetch(`${API_URL}/tasks/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
 
   if (!res.ok) {
-    throw new Error("Failed to patch task");
+    throw new Error('Failed to patch task');
   }
   const json = await res.json();
   return TaskSchema.parse(json);
@@ -83,9 +83,9 @@ export async function patchTask(id: string, data: Partial<CreateTask>): Promise<
 
 export async function deleteTask(id: string): Promise<void> {
   const res = await fetch(`${API_URL}/tasks/${id}`, {
-    method: "DELETE",
+    method: 'DELETE',
   });
   if (!res.ok) {
-    throw new Error("Failed to delete task");
+    throw new Error('Failed to delete task');
   }
 }

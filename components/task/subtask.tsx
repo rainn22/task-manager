@@ -1,7 +1,7 @@
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import { Subtask } from "@/validations/task";
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
+import { Subtask } from '@/validations/task';
 
 export default function TaskSubtasks({ subtasks }: { subtasks: Subtask[] }) {
   const completed = subtasks.filter((s) => s.completed).length;
@@ -15,18 +15,12 @@ export default function TaskSubtasks({ subtasks }: { subtasks: Subtask[] }) {
         </span>
       </div>
 
-      {subtasks.length === 0 && (
-        <p className="text-sm text-muted-foreground">No subtasks</p>
-      )}
+      {subtasks.length === 0 && <p className="text-sm text-muted-foreground">No subtasks</p>}
 
       {subtasks.map((subtask) => (
         <div key={subtask.id} className="flex items-center gap-3">
           <Checkbox checked={subtask.completed} />
-          <span
-            className={
-              subtask.completed ? "line-through text-muted-foreground" : ""
-            }
-          >
+          <span className={subtask.completed ? 'line-through text-muted-foreground' : ''}>
             {subtask.title}
           </span>
         </div>

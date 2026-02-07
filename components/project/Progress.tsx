@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Progress } from "@/components/animate-ui/components/radix/progress";
-import clsx from "clsx";
+import { useEffect, useState } from 'react';
+import { Progress } from '@/components/animate-ui/components/radix/progress';
+import clsx from 'clsx';
 
 interface AnimatedProgressProps {
   value: number;
@@ -23,10 +23,8 @@ export function AnimatedProgress({ value }: AnimatedProgressProps) {
     <Progress
       value={current}
       className={clsx(
-        "h-2",
-        mounted
-          ? "transition-[transform] duration-700 ease-out"
-          : "transition-none"
+        'h-2',
+        mounted ? 'transition-[transform] duration-700 ease-out' : 'transition-none'
       )}
     />
   );

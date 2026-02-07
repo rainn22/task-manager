@@ -1,6 +1,6 @@
-import { Badge } from "@/components/ui/badge";
-import { statusBadgeClasses, statusLabels } from "@/lib/utils";
-import { Task } from "@/validations/task";
+import { Badge } from '@/components/ui/badge';
+import { statusBadgeClasses, statusLabels } from '@/lib/utils';
+import { Task } from '@/validations/task';
 
 export default function TaskHeader({ task }: { task: Task }) {
   return (

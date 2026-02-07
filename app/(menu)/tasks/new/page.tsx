@@ -1,36 +1,30 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useRouter } from 'next/navigation';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
-import {
-  Field,
-  FieldGroup,
-  FieldLabel,
-  FieldError,
-  FieldDescription,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { Field, FieldGroup, FieldLabel, FieldError, FieldDescription } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
-import { Project } from "@/validations/project";
-import { getProjects } from "@/lib/api/project";
-import { createTask } from "@/lib/api/task";
-import { CreateTask, CreateTaskSchema } from "@/validations/task";
-import { Label } from "@/components/ui/label";
-import { Member } from "@/validations/member";
-import { getMembers } from "@/lib/api/member";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Project } from '@/validations/project';
+import { getProjects } from '@/lib/api/project';
+import { createTask } from '@/lib/api/task';
+import { CreateTask, CreateTaskSchema } from '@/validations/task';
+import { Label } from '@/components/ui/label';
+import { Member } from '@/validations/member';
+import { getMembers } from '@/lib/api/member';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export default function AddTask() {
   const router = useRouter();
@@ -40,7 +34,7 @@ export default function AddTask() {
     isLoading,
     isError,
   } = useQuery<Project[]>({
-    queryKey: ["projects"],
+    queryKey: ['projects'],
     queryFn: getProjects,
   });
 
@@ -49,29 +43,28 @@ export default function AddTask() {
     isLoading: membersLoading,
     isError: membersError,
   } = useQuery<Member[]>({
-    queryKey: ["members"],
+    queryKey: ['members'],
     queryFn: getMembers,
   });
 
   if (membersLoading) return <p>Loading...</p>;
-  if (membersError)
-    return <p className="text-red-500">Failed to load members</p>;
+  if (membersError) return <p className="text-red-500">Failed to load members</p>;
 
   const { control, handleSubmit } = useForm<CreateTask>({
     resolver: zodResolver(CreateTaskSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      status: "todo",
-      projectId: "",
-      priority: "medium",
-      dueDate: "",
+      title: '',
+      description: '',
+      status: 'todo',
+      projectId: '',
+      priority: 'medium',
+      dueDate: '',
     },
   });
 
   const { mutate, isPending } = useMutation({
     mutationFn: createTask,
-    onSuccess: () => router.push("/tasks"),
+    onSuccess: () => router.push('/tasks'),
   });
 
   function onSubmit(data: CreateTask) {
@@ -99,9 +92,7 @@ export default function AddTask() {
                     Title <span className="text-red-500">*</span>
                   </FieldLabel>
                   <Input {...field} placeholder="Task title" />
-                  {fieldState.error && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  {fieldState.error && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             />
@@ -114,14 +105,8 @@ export default function AddTask() {
                   <FieldLabel htmlFor="description">
                     Description <span className="text-red-500">*</span>
                   </FieldLabel>
-                  <Textarea
-                    {...field}
-                    rows={4}
-                    placeholder="Task description"
-                  />
-                  {fieldState.error && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  <Textarea {...field} rows={4} placeholder="Task description" />
+                  {fieldState.error && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             />
@@ -135,19 +120,15 @@ export default function AddTask() {
                     <FieldLabel htmlFor="projectId">
                       Project <span className="text-red-500">*</span>
                     </FieldLabel>
-                    <Select
-                      disabled={isLoading}
-                      value={field.value}
-                      onValueChange={field.onChange}
-                    >
+                    <Select disabled={isLoading} value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger>
                         <SelectValue
                           placeholder={
                             isLoading
-                              ? "Loading projects..."
+                              ? 'Loading projects...'
                               : isError
-                                ? "Failed to load projects"
-                                : "Select project"
+                                ? 'Failed to load projects'
+                                : 'Select project'
                           }
                         />
                       </SelectTrigger>
@@ -201,9 +182,7 @@ export default function AddTask() {
                         </SelectItem>
                       </SelectContent>
                     </Select>
-                    {fieldState.error && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
+                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
                   </Field>
                 )}
               />
@@ -243,9 +222,7 @@ export default function AddTask() {
                         </SelectItem>
                       </SelectContent>
                     </Select>
-                    {fieldState.error && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
+                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
                   </Field>
                 )}
               />
@@ -259,9 +236,7 @@ export default function AddTask() {
                       Due Date <span className="text-red-500">*</span>
                     </FieldLabel>
                     <Input type="date" {...field} />
-                    {fieldState.error && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
+                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
                   </Field>
                 )}
               />
@@ -273,10 +248,7 @@ export default function AddTask() {
                     <FieldLabel htmlFor="assignees">Assignees</FieldLabel>
                     <div className="grid grid-cols-2 gap-2">
                       {members?.map((member) => (
-                        <div
-                          key={member.id}
-                          className="flex items-center space-x-2"
-                        >
+                        <div key={member.id} className="flex items-center space-x-2">
                           <Checkbox
                             id={`assignee-${member.id}`}
                             checked={field.value?.includes(member.id) || false}
@@ -285,24 +257,17 @@ export default function AddTask() {
                               if (checked) {
                                 field.onChange([...current, member.id]);
                               } else {
-                                field.onChange(
-                                  current.filter((id) => id !== member.id),
-                                );
+                                field.onChange(current.filter((id) => id !== member.id));
                               }
                             }}
                           />
-                          <Label
-                            htmlFor={`assignee-${member.id}`}
-                            className="text-sm"
-                          >
+                          <Label htmlFor={`assignee-${member.id}`} className="text-sm">
                             {member.name}
                           </Label>
                         </div>
                       ))}
                     </div>
-                    {fieldState.error && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
+                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
                   </Field>
                 )}
               />
@@ -326,9 +291,7 @@ export default function AddTask() {
                             size="sm"
                             onClick={() => {
                               const current = field.value || [];
-                              field.onChange(
-                                current.filter((a) => a.id !== attachment.id),
-                              );
+                              field.onChange(current.filter((a) => a.id !== attachment.id));
                             }}
                           >
                             Remove
@@ -350,9 +313,7 @@ export default function AddTask() {
                         }}
                       />
                     </div>
-                    {fieldState.error && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
+                    {fieldState.error && <FieldError errors={[fieldState.error]} />}
                   </Field>
                 )}
               />
@@ -360,15 +321,11 @@ export default function AddTask() {
           </FieldGroup>
 
           <div className="flex justify-end gap-3 pt-4">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => router.back()}
-            >
+            <Button type="button" variant="outline" onClick={() => router.back()}>
               Cancel
             </Button>
             <Button type="submit" disabled={isPending}>
-              {isPending ? "Creating..." : "Create Task"}
+              {isPending ? 'Creating...' : 'Create Task'}
             </Button>
           </div>
         </form>

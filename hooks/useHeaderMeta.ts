@@ -1,54 +1,51 @@
-import { usePathname } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { getTasks } from "@/lib/api/task";
-import { getProjects } from "@/lib/api/project";
+import { usePathname } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { getTasks } from '@/lib/api/task';
+import { getProjects } from '@/lib/api/project';
 
 export function useHeaderMeta() {
   const pathname = usePathname();
 
   const { data: tasks } = useQuery({
-    queryKey: ["tasks"],
+    queryKey: ['tasks'],
     queryFn: getTasks,
   });
 
   const { data: projects } = useQuery({
-    queryKey: ["projects"],
+    queryKey: ['projects'],
     queryFn: getProjects,
   });
 
   const taskCount = tasks?.length ?? 0;
   const projectCount = projects?.length ?? 0;
 
-  if (pathname === "/dashboard") {
+  if (pathname === '/dashboard') {
     return {
-      title: "Dashboard",
-      subtitle: "Welcome back, Lika!",
+      title: 'Dashboard',
+      subtitle: 'Welcome back, Lika!',
     };
   }
 
-  if (pathname === "/tasks") {
+  if (pathname === '/tasks') {
     return {
-      title: "Tasks",
+      title: 'Tasks',
       subtitle: `${taskCount} total tasks`,
     };
   }
 
-  if (pathname === "/projects") {
+  if (pathname === '/projects') {
     return {
-      title: "Projects",
+      title: 'Projects',
       subtitle: `${projectCount} active projects`,
     };
   }
 
-  if (
-    pathname.startsWith("/tasks/") &&
-    pathname !== "/tasks/new"
-  ) {
+  if (pathname.startsWith('/tasks/') && pathname !== '/tasks/new') {
     return {
-      title: "Task",
-      subtitle: "Task details",
+      title: 'Task',
+      subtitle: 'Task details',
     };
   }
 
-  return { title: "", subtitle: "" };
+  return { title: '', subtitle: '' };
 }

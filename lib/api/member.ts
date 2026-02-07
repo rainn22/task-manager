@@ -1,30 +1,28 @@
-import { MemberSchema, Member } from "@/validations/member";
+import { MemberSchema, Member } from '@/validations/member';
 
-const API_URL = "http://localhost:3001";
+const API_URL = 'http://localhost:3001';
 
 export async function getMembers(): Promise<Member[]> {
   const res = await fetch(`${API_URL}/members`, {
-    cache: "no-store",
+    cache: 'no-store',
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch members");
+    throw new Error('Failed to fetch members');
   }
 
   const json = await res.json();
   return MemberSchema.array().parse(json);
 }
-export async function getMembersByIds(
-  memberIds: string[] = []
-): Promise<Member[]> {
+export async function getMembersByIds(memberIds: string[] = []): Promise<Member[]> {
   if (memberIds.length === 0) return [];
 
   const res = await fetch(`${API_URL}/members`, {
-    cache: "no-store",
+    cache: 'no-store',
   });
 
   if (!res.ok) {
-    throw new Error("Failed to fetch members");
+    throw new Error('Failed to fetch members');
   }
 
   const json = await res.json();

@@ -1,7 +1,7 @@
-import { TaskStatus } from "@/validations/task";
-import { Badge } from "../ui/badge";
-import { Input } from "../ui/input";
-import Link from "next/link";
+import { TaskStatus } from '@/validations/task';
+import { Badge } from '../ui/badge';
+import { Input } from '../ui/input';
+import Link from 'next/link';
 
 export default function TaskRow({
   id,
@@ -47,21 +47,13 @@ export default function TaskRow({
         <div className="min-w-0">
           <span
             className={`font-medium text-base ${
-              checked
-                ? "line-through text-zinc-400"
-                : "text-zinc-900 dark:text-zinc-100"
+              checked ? 'line-through text-zinc-400' : 'text-zinc-900 dark:text-zinc-100'
             }`}
           >
-            <Link
-              href={`/tasks/${id}`}
-            >
-              {title}
-            </Link>
+            <Link href={`/tasks/${id}`}>{title}</Link>
           </span>
           {description ? (
-            <span className="block text-xs text-zinc-400 truncate">
-              {description}
-            </span>
+            <span className="block text-xs text-zinc-400 truncate">{description}</span>
           ) : null}
         </div>
         <StatusBadge status={status} />
@@ -88,18 +80,12 @@ export default function TaskRow({
 }
 
 function StatusBadge({ status }: { status: TaskStatus }) {
-  if (status === "done") {
-    return (
-      <Badge className="ml-2 bg-green-100 text-green-700 border-green-200">
-        Done
-      </Badge>
-    );
+  if (status === 'done') {
+    return <Badge className="ml-2 bg-green-100 text-green-700 border-green-200">Done</Badge>;
   }
-  if (status === "in-progress") {
+  if (status === 'in-progress') {
     return (
-      <Badge className="ml-2 bg-orange-100 text-orange-700 border-orange-200">
-        In Progress
-      </Badge>
+      <Badge className="ml-2 bg-orange-100 text-orange-700 border-orange-200">In Progress</Badge>
     );
   }
   return (

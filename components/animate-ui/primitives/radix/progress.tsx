@@ -10,8 +10,7 @@ type ProgressContextType = {
   value: number;
 };
 
-const [ProgressProvider, useProgress] =
-  getStrictContext<ProgressContextType>('ProgressContext');
+const [ProgressProvider, useProgress] = getStrictContext<ProgressContextType>('ProgressContext');
 
 type ProgressProps = React.ComponentProps<typeof ProgressPrimitive.Root>;
 
@@ -25,9 +24,7 @@ function Progress(props: ProgressProps) {
 
 const MotionProgressIndicator = motion.create(ProgressPrimitive.Indicator);
 
-type ProgressIndicatorProps = React.ComponentProps<
-  typeof MotionProgressIndicator
->;
+type ProgressIndicatorProps = React.ComponentProps<typeof MotionProgressIndicator>;
 
 function ProgressIndicator({
   transition = { type: 'spring', stiffness: 100, damping: 30 },

@@ -1,17 +1,10 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
-import {
-  Home,
-  CheckSquare,
-  FolderKanban,
-  Plus,
-  Settings,
-  User,
-} from "lucide-react";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import { Home, CheckSquare, FolderKanban, Plus, Settings, User } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
@@ -23,31 +16,31 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
-import { getProjects } from "@/lib/api/project";
+} from '@/components/ui/sidebar';
+import { getProjects } from '@/lib/api/project';
 
 export default function AppSidebar() {
   const pathname = usePathname();
 
   const { data: projects = [] } = useQuery({
-    queryKey: ["projects"],
+    queryKey: ['projects'],
     queryFn: getProjects,
   });
 
   const mainNavItems = [
     {
-      title: "Dashboard",
-      href: "/dashboard",
+      title: 'Dashboard',
+      href: '/dashboard',
       icon: Home,
     },
     {
-      title: "Tasks",
-      href: "/tasks",
+      title: 'Tasks',
+      href: '/tasks',
       icon: CheckSquare,
     },
     {
-      title: "Projects",
-      href: "/projects",
+      title: 'Projects',
+      href: '/projects',
       icon: FolderKanban,
     },
   ];
@@ -68,12 +61,8 @@ export default function AppSidebar() {
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-semibold text-lg text-slate-900">
-                CatWork
-              </span>
-              <span className="text-[10px] text-slate-500">
-                Work Management
-              </span>
+              <span className="font-semibold text-lg text-slate-900">CatWork</span>
+              <span className="text-[10px] text-slate-500">Work Management</span>
             </div>
           </div>
         </div>
@@ -94,10 +83,7 @@ export default function AppSidebar() {
                       isActive={isActive}
                       className="h-10 hover:bg-white/80 hover:shadow-sm transition-all duration-200 data-[active=true]:bg-gradient-to-r data-[active=true]:from-blue-50 data-[active=true]:to-purple-50 data-[active=true]:border data-[active=true]:border-blue-200/50 data-[active=true]:shadow-md data-[active=true]:text-blue-700 data-[active=true]:font-medium"
                     >
-                      <Link
-                        href={item.href}
-                        className="flex items-center gap-3"
-                      >
+                      <Link href={item.href} className="flex items-center gap-3">
                         <item.icon className="w-4 h-4" />
                         <span>{item.title}</span>
                       </Link>
@@ -130,10 +116,7 @@ export default function AppSidebar() {
                       isActive={isActive}
                       className="h-9 hover:bg-white/60 hover:translate-x-0.5 transition-all duration-200 data-[active=true]:bg-white data-[active=true]:shadow-sm data-[active=true]:border-l-2 data-[active=true]:border-blue-500 data-[active=true]:font-medium data-[active=true]:text-slate-900"
                     >
-                      <Link
-                        href={`/projects/${project.id}`}
-                        className="flex items-center gap-2.5"
-                      >
+                      <Link href={`/projects/${project.id}`} className="flex items-center gap-2.5">
                         <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-br from-blue-400 to-purple-500" />
                         <span className="text-sm">{project.name}</span>
                       </Link>
@@ -154,9 +137,7 @@ export default function AppSidebar() {
               <User className="w-4 h-4 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xs font-medium text-slate-900">
-                User Name
-              </span>
+              <span className="text-xs font-medium text-slate-900">User Name</span>
               <span className="text-[10px] text-slate-500">user@email.com</span>
             </div>
           </div>

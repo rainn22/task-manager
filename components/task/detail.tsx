@@ -1,19 +1,13 @@
-import { Label } from "@/components/ui/label";
-import Member from "@/components/project/member";
-import { Task } from "@/validations/task";
-import { Member as MemberSchema } from "@/validations/member";
-import { Project } from "@/validations/project";
-import { Button } from "../ui/button";
-import { Plus, Calendar, Paperclip, Flag } from "lucide-react";
-import formatDate, { priorityColors, statusBadgeClasses } from "@/lib/utils";
-import { cn } from "@/lib/utils";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+import { Label } from '@/components/ui/label';
+import Member from '@/components/project/member';
+import { Task } from '@/validations/task';
+import { Member as MemberSchema } from '@/validations/member';
+import { Project } from '@/validations/project';
+import { Button } from '../ui/button';
+import { Plus, Calendar, Paperclip, Flag } from 'lucide-react';
+import formatDate, { priorityColors, statusBadgeClasses } from '@/lib/utils';
+import { cn } from '@/lib/utils';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
 export default function TaskDetails({
   task,
@@ -36,7 +30,7 @@ export default function TaskDetails({
             Status
           </Label>
           <Select defaultValue={task.status}>
-            <SelectTrigger className={cn("w-full", statusBadgeClasses[task.status])}>
+            <SelectTrigger className={cn('w-full', statusBadgeClasses[task.status])}>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -56,7 +50,7 @@ export default function TaskDetails({
             <div
               className={`w-full flex items-center px-3.5 py-2 rounded-lg border text-sm font-medium capitalize ${
                 priorityColors[task.priority.toLowerCase()] ??
-                "bg-gray-50 text-gray-600 border-gray-200"
+                'bg-gray-50 text-gray-600 border-gray-200'
               }`}
             >
               {task.priority}
@@ -88,9 +82,7 @@ export default function TaskDetails({
               Due Date
             </Label>
             <div className="w-full px-3.5 py-2.5 rounded-lg border border-gray-200">
-              <span className="text-sm font-medium text-gray-700">
-                {formatDate(task.dueDate)}
-              </span>
+              <span className="text-sm font-medium text-gray-700">{formatDate(task.dueDate)}</span>
             </div>
           </div>
         )}
@@ -102,11 +94,11 @@ export default function TaskDetails({
           <div className="w-full flex items-center gap-3 px-3.5 py-3 rounded-lg border border-gray-200">
             <span
               className={`h-3 w-3 rounded-full ring-2 ring-white shadow-sm ${
-                project?.color ?? "bg-gray-300"
+                project?.color ?? 'bg-gray-300'
               }`}
             />
             <span className="text-sm font-medium text-gray-700">
-              {project?.name ?? "Unknown project"}
+              {project?.name ?? 'Unknown project'}
             </span>
           </div>
         </div>

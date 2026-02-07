@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "@/components/ui/skeleton";
+import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import { Skeleton } from '@/components/ui/skeleton';
 
-import { getProjects } from "@/lib/api/project";
-import { getTasks } from "@/lib/api/task";
-import { getMembers } from "@/lib/api/member";
+import { getProjects } from '@/lib/api/project';
+import { getTasks } from '@/lib/api/task';
+import { getMembers } from '@/lib/api/member';
 
-import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
-import { AnimatedProgress } from "@/components/project/Progress";
+import { Avatar, AvatarFallback } from '@radix-ui/react-avatar';
+import { AnimatedProgress } from '@/components/project/Progress';
 
 export default function ProjectsPage() {
   const {
@@ -17,7 +17,7 @@ export default function ProjectsPage() {
     isLoading: projectsLoading,
     isError: projectsError,
   } = useQuery({
-    queryKey: ["projects"],
+    queryKey: ['projects'],
     queryFn: getProjects,
   });
 
@@ -26,7 +26,7 @@ export default function ProjectsPage() {
     isLoading: tasksLoading,
     isError: tasksError,
   } = useQuery({
-    queryKey: ["tasks"],
+    queryKey: ['tasks'],
     queryFn: getTasks,
   });
 
@@ -35,32 +35,20 @@ export default function ProjectsPage() {
     isLoading: membersLoading,
     isError: membersError,
   } = useQuery({
-    queryKey: ["members"],
+    queryKey: ['members'],
     queryFn: getMembers,
   });
-
 
   if (projectsLoading || tasksLoading || membersLoading) {
     return <Skeleton className="h-32 w-full " />;
   }
 
-  if (
-    projectsError ||
-    tasksError ||
-    membersError ||
-    !projects ||
-    !tasks ||
-    !members
-  ) {
-    return (
-      <p className="p-6 text-red-500">
-        Failed to load projects
-      </p>
-    );
+  if (projectsError || tasksError || membersError || !projects || !tasks || !members) {
+    return <p className="p-6 text-red-500">Failed to load projects</p>;
   }
 
   // 🔹 Build lookup maps
-  const tasksByProjectId = new Map<string, typeof tasks[number][]>();
+  const tasksByProjectId = new Map<string, (typeof tasks)[number][]>();
   const membersById = new Map(members.map((m) => [m.id, m]));
 
   for (const task of tasks) {
@@ -89,21 +77,14 @@ export default function ProjectsPage() {
           const projectTasks = tasksByProjectId.get(project.id) ?? [];
 
           const totalTasks = projectTasks.length;
-          const inProgressTasks = projectTasks.filter(
-            (t) => t.status === "in-progress"
-          ).length;
+          const inProgressTasks = projectTasks.filter((t) => t.status === 'in-progress').length;
 
-          const progress =
-            totalTasks === 0
-              ? 0
-              : Math.round((inProgressTasks / totalTasks) * 100);
+          const progress = totalTasks === 0 ? 0 : Math.round((inProgressTasks / totalTasks) * 100);
 
           const projectMembers =
             project.members
               ?.map((id) => membersById.get(id))
-              .filter(
-                (m): m is NonNullable<typeof m> => Boolean(m)
-              ) ?? [];
+              .filter((m): m is NonNullable<typeof m> => Boolean(m)) ?? [];
 
           return (
             <li key={project.id}>
@@ -119,16 +100,13 @@ export default function ProjectsPage() {
                   </span>
                 </div>
 
-                <p className="font-light text-sm text-gray-500">
-                  {project.description}
-                </p>
+                <p className="font-light text-sm text-gray-500">{project.description}</p>
 
                 <AnimatedProgress value={progress} />
 
                 <div className="flex items-center gap-2 flex-wrap">
                   {projectMembers.map((member) => {
-                    const firstLetter =
-                      member.name?.trim().charAt(0).toUpperCase() ?? "?";
+                    const firstLetter = member.name?.trim().charAt(0).toUpperCase() ?? '?';
 
                     return (
                       <Avatar
@@ -147,9 +125,7 @@ export default function ProjectsPage() {
                   })}
 
                   {projectMembers.length === 0 && (
-                    <span className="text-xs text-gray-400">
-                      No members assigned
-                    </span>
+                    <span className="text-xs text-gray-400">No members assigned</span>
                   )}
                 </div>
               </Link>
