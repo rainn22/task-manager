@@ -117,7 +117,7 @@ export default function TaskDetails({
               {attachments.map((file) => (
                 <div
                   key={file.id}
-                  className="flex items-center gap-3 px-3.5 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer"
+  className="flex items-center gap-3 px-3.5 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer"
                 >
                   <Paperclip className="h-4 w-4 text-gray-600" />
                   <span className="text-sm text-gray-700">{file.name}</span>
